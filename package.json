@@ -4,7 +4,13 @@
   "description": "Coming soon...",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "clean": "rm -rf dist/",
+    "build": "npm run clean && rollup -c",
+    "dev": "rollup -c -w",
+    "test": "jasmine",
+    "pretest": "npm run build",
+    "start": "node dist/smart-selectors-api.cjs.js",
+    "app": "npm run build && npm run start"
   },
   "repository": {
     "type": "git",
@@ -16,5 +22,14 @@
   "bugs": {
     "url": "https://github.com/SmartSelectors/smart-selectors-node/issues"
   },
-  "homepage": "https://github.com/SmartSelectors/smart-selectors-node#readme"
+  "homepage": "https://github.com/SmartSelectors/smart-selectors-node#readme",
+  "devDependencies": {
+    "@rollup/plugin-commonjs": "^11.0.2",
+    "@rollup/plugin-node-resolve": "^7.1.1",
+    "eslint": "^6.8.0",
+    "jasmine": "^3.5.0",
+    "prettier": "^2.0.2",
+    "rollup": "^2.2.0"
+  },
+  "dependencies": {}
 }
