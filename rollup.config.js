@@ -1,5 +1,6 @@
 import resolve from '@rollup/plugin-node-resolve';
 import commonjs from '@rollup/plugin-commonjs';
+import json from '@rollup/plugin-json';
 
 export default [
   {
@@ -16,6 +17,7 @@ export default [
     plugins: [
       resolve({ preferBuiltins: true }), // so Rollup can find `ms`
       commonjs(), // so Rollup can convert `ms` to an ES module
+      json(),
     ],
   },
 ];

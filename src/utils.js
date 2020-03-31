@@ -1,4 +1,5 @@
 import { readFileSync } from 'fs';
+import path from 'path';
 
 export const toBase64 = (imagePath) => {
   const resolvedPath = resolvePath(imagePath);
@@ -6,6 +7,6 @@ export const toBase64 = (imagePath) => {
   return new Buffer.from(bitmap).toString('base64');
 };
 
-const resolvePath = (path) => {
-  return path.join(process.cwd(), path);
+const resolvePath = (p) => {
+  return path.join(process.cwd(), p);
 };

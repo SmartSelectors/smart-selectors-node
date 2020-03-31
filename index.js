@@ -1,5 +1,10 @@
-import { toBase64 } from './src/utils';
+import { predict } from './src/api-client';
 
-const arg = process.argv[2];
-console.log(arg);
-console.log(toBase64(arg));
+predict('spec/resources/icons/edit.png')
+  .then((data) => {
+    console.log('afksfks');
+    console.log(data);
+  })
+  .catch((err) => {
+    console.log('noos');
+  });
