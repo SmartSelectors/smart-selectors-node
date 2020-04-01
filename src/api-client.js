@@ -29,11 +29,5 @@ export const predict = (image) => {
   return needle
     .post('http://webiconsimagepredictor.azurewebsites.net/predict', data, options, function(err, resp, body) {
       console.log(`error: ${err} response: ${resp.statusMessage} body: ${JSON.stringify(body)}`);
-    }).on('readable', function(){
-      console.log('READABLE..!');
-    }).on('redirect', function(e) {
-      console.log('REDIRECTING...!', e);
-    }).on('done', function(resp){
-      console.log('DONE..!', resp);
     });
 };
