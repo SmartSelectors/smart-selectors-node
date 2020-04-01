@@ -1,5 +1,6 @@
 import fetch from 'node-fetch';
 import axios from 'axios';
+import needle from 'needle';
 import FormData from 'form-data';
 import fs from 'fs';
 import Blob from 'node-blob';
@@ -9,34 +10,30 @@ export const predict = (image) => {
   const formData = new FormData();
   formData.append('file', '1');
 
-  return axios
-    .request({
-      baseURL: 'http://webiconsimagepredictor.azurewebsites.net',
-      url: 'predict',
-      method: 'POST',
-      data: formData,
-      headers: {
-        'Content-Type': 'multipart/form-data',
-      },
-      redirect: 'follow',
-    })
-    .then((data) => data.json())
-    .catch((error) => error);
-};
-// Codigo con Fetch, se tranca al mandarle FormData
-// export const predict = (image) => {
-//   // fs.readFileSync(image)
-//   // const formData = new FormData();
-//   // forsmData.append('file', '1');
+  const data = {
+    image: {
+      file: 'spec/resources/icons/edit.png',
+      content_type: 'image/png'
+    }
+  };
 
-//   return fetch('http://webiconsimagepredictor.azurewebsites.net/predict', {
-//     method: 'POST',
-//     body: { hola: 'hola' },
-//     // headers: {
-//     //   'Content-Type': 'multipart/form-data',
-//     // },
-//     redirect: 'follow',
-//   })
-//     .then((data) => data.json())
-//     .catch((error) => error);
-// };
+  const options = {
+    compressed: true,
+    accept: 'application/json',
+    content_type: 'multipart/form-data',
+    multipart: true,
+    follow_max: 5,
+    follow_keep_method: true
+  };
+
+  return needle
+    .post('http://webiconsimagepredictor.azurewebsites.net/predict', data, options, function(err, resp, body) {
+      console.log(`error: ${err} response: ${resp.statusMessage} body: ${JSON.stringify(body)}`);
+    }).on('readable', function(){
+      console.log('READABLE..!');
+    }).on('redirect', function(e) {
+      console.log('REDIRECTING...!', e);
+    }).on('done', function(resp){
+      console.log('DONE..!', resp);
+    });
+};
