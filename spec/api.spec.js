@@ -1,15 +1,12 @@
 import { predict } from '../src/api-client';
 
-describe('Remote api client', () => {
-  it('should be able to predict an images category', () => {
-    predict('spec/resources/icons/edit.png')
-      .then((data) => {
-        data = data.json();
-        expect(data.success).toBeTrue();
-        console.log(data);
-      })
-      .catch((error) => {
-        console.log('OH NOO!', error);
-      });
+describe('Remote api client', async () => {
+  it('should be able to predict an images category, awaiting', async () => {
+    try {
+      let data = await predict('spec/resources/icons/edit.png');
+      expect(data.success).toBeTrue();
+    } catch (error) {
+      console.error('OHH');
+    }
   });
 });

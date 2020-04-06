@@ -38,10 +38,7 @@
     "rollup": "^2.2.0"
   },
   "dependencies": {
-    "axios": "^0.19.2",
     "form-data": "^3.0.0",
-    "needle": "^2.3.3",
-    "node-blob": "0.0.2",
-    "node-fetch": "^2.6.0"
+    "needle": "^2.3.3"
   }
 }
