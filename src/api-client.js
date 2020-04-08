@@ -1,5 +1,5 @@
 import needle from 'needle';
-import endpoint from './config/enpoint.json';
+import endpoint from './config/endpoint.json';
 
 import {
   isPathAString,
@@ -29,7 +29,7 @@ const throwError = errorMsg => {
   throw new Error(errorMsg);
 };
 
-export const predict = async imagePath => {
+const validateImagePath = async imagePath => {
   if (!isPathAString(imagePath)) {
     throwError('Path should be a string');
   }
@@ -49,8 +49,11 @@ export const predict = async imagePath => {
       `"${imagePath}" is not a valid extension file, it should be either a 'jpg' or a 'png'`
     );
   }
+};
 
-  formData.image.file = fullPath;
+export const predict = async imagePath => {
+  await validateImagePath(imagePath);
+  formData.image.file = resolveFullPath(imagePath);
   const { host, route } = endpoint;
   return new Promise((resolve, reject) => {
     needle.post(`${host}${route}`, formData, clientOptions, function (

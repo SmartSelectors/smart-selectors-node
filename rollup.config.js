@@ -14,10 +14,6 @@ export default [
         sourcemap: 'inline',
       },
     ],
-    plugins: [
-      resolve({ preferBuiltins: true }), // so Rollup can find `ms`
-      commonjs(), // so Rollup can convert `ms` to an ES module
-      json(),
-    ],
+    plugins: [resolve({ preferBuiltins: true }), commonjs(), json()],
   },
 ];
