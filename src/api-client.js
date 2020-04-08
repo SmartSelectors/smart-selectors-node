@@ -1,24 +1,20 @@
 import needle from 'needle';
+import endpoint from './config/enpoint.json';
 
-export const predict = (image) =>
-  new Promise((resolve, reject) => {
-    const data = {
-      image: {
-        file: 'spec/resources/icons/edit.png',
-        content_type: 'image/png',
-      },
-    };
+import {
+  isPathAString,
+  isPathEmpty,
+  isPathExistent,
+  isValidFile,
+  resolveFullPath,
+} from './fileUtils';
 
-    needle.post(
-      'http://webiconsimagepredictor.azurewebsites.net/predict',
-      data,
-      clientOptions,
-      function (err, resp, body) {
-        if (err) return reject(err);
-        resolve(body);
-      }
-    );
-  });
+const formData = {
+  image: {
+    file: '',
+    content_type: 'image/png',
+  },
+};
 
 const clientOptions = {
   compressed: true,
@@ -27,4 +23,43 @@ const clientOptions = {
   multipart: true,
   follow_max: 5,
   follow_keep_method: true,
+};
+
+const throwError = errorMsg => {
+  throw new Error(errorMsg);
+};
+
+export const predict = async imagePath => {
+  if (!isPathAString(imagePath)) {
+    throwError('Path should be a string');
+  }
+
+  if (isPathEmpty(imagePath)) {
+    throwError('Empty path is not a valid path');
+  }
+
+  if (!isPathExistent(imagePath)) {
+    throwError(`"${imagePath}" is not a valid path`);
+  }
+
+  const fullPath = resolveFullPath(imagePath);
+
+  if (!(await isValidFile(fullPath))) {
+    throwError(
+      `"${imagePath}" is not a valid extension file, it should be either a 'jpg' or a 'png'`
+    );
+  }
+
+  formData.image.file = fullPath;
+  const { host, route } = endpoint;
+  return new Promise((resolve, reject) => {
+    needle.post(`${host}${route}`, formData, clientOptions, function (
+      err,
+      resp,
+      body
+    ) {
+      if (err) return reject(err);
+      resolve(body);
+    });
+  });
 };

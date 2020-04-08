@@ -1,5 +1,6 @@
 import { predict } from './src/api-client';
 
-predict('spec/resources/icons/edit.png')
-  .then((succ) => console.log(succ))
-  .catch((err) => console.log(err));
+// export { predict };
+predict('../spec/resources/icons/edit.png')
+  .then(console.log)
+  .catch(console.log);
