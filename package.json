@@ -1,0 +1,48 @@
+{
+  "name": "smart-selectors-node",
+  "version": "1.0.0",
+  "description": "Coming soon...",
+  "main": "index.js",
+  "scripts": {
+    "clean": "rm -rf dist/",
+    "build": "npm run clean && rollup -c",
+    "dev": "rollup -c -w",
+    "test": "jasmine --reporter=jasmine-console-reporter",
+    "test:w": "nodemon --watch spec --watch src --exec \"npm test\"",
+    "pretest": "npm run build",
+    "start": "node dist/smart-selectors-api.cjs.js",
+    "app": "npm run build && npm run start"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SmartSelectors/smart-selectors-node.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/SmartSelectors/smart-selectors-node/issues"
+  },
+  "homepage": "https://github.com/SmartSelectors/smart-selectors-node#readme",
+  "devDependencies": {
+    "@babel/core": "^7.9.0",
+    "@babel/plugin-transform-runtime": "^7.9.0",
+    "@babel/preset-env": "^7.9.0",
+    "@babel/register": "^7.9.0",
+    "@rollup/plugin-alias": "^3.0.1",
+    "@rollup/plugin-commonjs": "^11.0.2",
+    "@rollup/plugin-json": "^4.0.2",
+    "@rollup/plugin-node-resolve": "^7.1.1",
+    "eslint": "^6.8.0",
+    "file-type": "^14.1.4",
+    "jasmine": "^3.5.0",
+    "jasmine-console-reporter": "^3.1.0",
+    "nodemon": "^2.0.2",
+    "prettier": "^2.0.2",
+    "rollup": "^2.2.0"
+  },
+  "dependencies": {
+    "form-data": "^3.0.0",
+    "needle": "^2.3.3"
+  }
+}
