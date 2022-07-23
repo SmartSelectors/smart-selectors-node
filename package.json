@@ -34,7 +34,7 @@
     "@rollup/plugin-json": "^4.0.2",
     "@rollup/plugin-node-resolve": "^7.1.1",
     "eslint": "^6.8.0",
-    "file-type": "^14.1.4",
+    "file-type": "^16.5.4",
     "jasmine": "^3.5.0",
     "jasmine-console-reporter": "^3.1.0",
     "nodemon": "^2.0.2",
